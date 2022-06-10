@@ -1,0 +1,8 @@
+# to get the manigest of an replicaset
+kubectl get rs <name> -o yaml
+
+# to delete via file
+kubectl delete -f 01-replicaset.yaml
+
+# to delete via rs 
+kubectl delete rs replicaset
