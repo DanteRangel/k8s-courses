@@ -5,6 +5,7 @@ metadata:
   labels:
     app: front
 spec:
+#   revisionHistoryLimit: 1
   replicas: 5
   selector: 
     matchLabels:
@@ -16,4 +17,6 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:alpine
+        image: nginx
+        ports:
+        - containerPort: 80

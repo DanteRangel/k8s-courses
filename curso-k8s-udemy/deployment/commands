@@ -1,0 +1,32 @@
+`kubectl api-resources | grep Deployment`
+
+# to check deployment with manifest
+`kubectl rollout status -f 01-deployment.yaml` 
+
+# to check deployment via name
+`kubectl rollout status deployment <deployment-test>` 
+
+# list pods with labels
+`kubectl get pods --show-labels`
+
+# Describe deployment
+`kubectl describe deployment deployment-test`
+
+# get the manifest
+`kubectl get deployment deployment-test -o yaml`
+
+# to run a rollout
+`kubectl rollout status deployment deployment-test`
+
+# To get the history of a rollout
+`kubectl rollout history deployment deployment-test`
+
+# To save the cause 
+`kubectl apply -f 01-deployment.yaml  --record`
+
+### to check a specific revision
+`kubectl rollout history deployment deployment-test --revision=3`
+
+### to do a rollback
+
+`kubectl rollout undo deployment deployment-test --to-revision=3`
