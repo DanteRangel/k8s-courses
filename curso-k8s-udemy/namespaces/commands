@@ -1,0 +1,15 @@
+### To create a namespace
+
+kubectl create namespace test-ns
+
+### To describe a namespace
+
+kubectl describe namespaces test-ns
+
+### To list the namespaces
+
+kubectl get namespaces
+
+## with labels
+
+kubectl get namespaces --show-labels

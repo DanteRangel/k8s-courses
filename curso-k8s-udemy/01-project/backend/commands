@@ -1,0 +1,30 @@
+### Pull golang imange
+docker pull golang
+
+### Run golang image
+docker run --rm -dti -v $PWD/src/:/go --net host --name golang golang bash
+
+### Run a bash into container
+
+ docker exec -ti 4ad9fc49f2ad021cfb8c2e84d724c231df55c44a547dcf899e0accef818b3c38 bash
+
+### TO build Dockerfile
+
+docker build -t k8s-hands-on -f Dockerfile .
+
+## To run the k8s-hands-on
+
+docker run -d -p 9091:8080 --name k8s-hands-on k8s-hands-on
+
+### to create the service
+
+kubectl apply -f backend.yaml 
+
+### when the pods are not working for ImagePullBackOff error
+eval $(minikube docker-env)
+
+
+### 
+
+kubectl port-forward service/backend-k8s-hands-on 7000:80
+

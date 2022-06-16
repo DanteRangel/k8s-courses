@@ -6,3 +6,6 @@ kubectl delete -f 01-replicaset.yaml
 
 # to delete via rs 
 kubectl delete rs replicaset
+
+# to see th manifest
+kubectl get rs replicaset -o yaml

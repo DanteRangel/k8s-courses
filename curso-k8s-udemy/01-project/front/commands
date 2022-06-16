@@ -1,0 +1,20 @@
+
+### TO build Dockerfile
+
+docker build -t frontend-k8s-hands-on  -f Dockerfile .
+
+## To run the k8s-hands-on
+
+docker run -d -p 9091:8080 --name frontend-k8s-hands-on frontend-k8s-hands-on
+
+### to create the service
+
+kubectl apply -f frontend.yaml 
+
+### when the pods are not working for ImagePullBackOff error
+eval $(minikube docker-env)
+
+### 
+
+
+kubectl port-forward service/frontend-k8s-hands-on 7001:80
