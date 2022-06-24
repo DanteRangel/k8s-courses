@@ -1,0 +1,37 @@
+kubectl get resourcequotas -n uat
+
+kubectl describe resourcequotas -n uat res-quota
+
+kubectl apply -f 02-resource-quota.yaml 
+
+kubectl get deployments -n uat
+
+kubectl describe deployment deployment-test -n uat
+
+kubectl describe deployment deployment-test -n uat
+
+ Warning  FailedCreate  3m32s                replicaset-controller  Error creating: pods "deployment-test-789cf976bf-6f47n" is forbidden: failed quota: res-quota: must specify limits.cpu,limits.memory
+  
+
+We need to add the limits too
+
+
+
+We can see that we dont have use more resources
+kubectl get deployments -n uat deployment-test -o yaml
+
+
+
+
+
+For resource quota in pods
+
+kubectl get quota -n qa
+kubectl get quota -n qa res-quota-pod
+
+kubectl apply -f 04-resource-quota-pod.yaml 
+
+Everything ok
+
+kubectl apply -f 05-resource-quota-pod-fail.yaml 
+kubectl get deployment -n qa deployment-qa -o yaml
