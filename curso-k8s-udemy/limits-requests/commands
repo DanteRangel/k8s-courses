@@ -1,0 +1,26 @@
+The limits are the limit that you give to the resource
+
+
+The request is the value that you want in a resource
+
+
+When you configure a resource with limite memory in 30Mi
+and a request memory in a 20Mi
+this means that the cluster will give you the request memory but 
+coould give you more if is necesary
+
+### Kubectl get nodes
+
+kubectl get nodes
+
+### describe node and check de resources
+
+kubectl describe node minukube 
+
+
+### QOS clasess
+
+
+BestEffort = when is not defining limit an request values [not recommended]
+Bursatable = Limits is major to the request
+Guaranteed = The limit and the request are the same

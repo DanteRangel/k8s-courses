@@ -13,3 +13,38 @@ kubectl get namespaces
 ## with labels
 
 kubectl get namespaces --show-labels
+
+### to connect to another service in another namespace
+DNS =  #{service-name}.#{name-namespace}.svc.cluster.local
+
+#### Example
+curl backend-k8s-hands-on.ci.svc.cluster.local
+
+
+### to know the context
+
+kubectl config current-context
+
+### describe config
+
+kubectl config view
+
+## to avoid to have an error ImagePull in the local
+RUn minukube ssh
+# to check if our image is already created
+docker images 
+# if not Run 
+eval $(minikube docker-env)
+
+and after that Build the image(again))
+
+
+### Create new context
+
+kubectl config set-context context-ci --cluster=minikube --user=minikube --namespace=ci
+
+
+### SWitch to another context
+
+kubectl config use-context context-ci
+
