@@ -1,0 +1,20 @@
+
+
+### To create ENV variables in a container
+
+ kubectl apply -f 01-env-variable.yaml 
+
+### enter to container
+
+kubectl exec -ti envar-demo sh
+
+### To see env variables
+
+env
+
+#### or
+
+echo $VAR1 $VAR3 $VAR4
+
+
+### To create ENV with references

@@ -1,0 +1,28 @@
+### Liveness Probe command
+
+Sleep 30 seconds after remove the tmp file and check it each 5 seconds
+
+kubectl apply -f 01-liveness-probe-command.yaml 
+
+
+### To describe pod
+kubectl describe pod liveness-command
+
+
+### Liveness Probe TCP
+
+kubectl apply -f 02-liveness-probe-tcp.yaml
+
+### To describe pod
+kubectl describe pod liveness-tcp
+
+### Liveness Probe HTTP
+
+kubectl apply -f 03-liveness-probe-http.yaml
+
+### To describe pod
+kubectl describe pod liveness-http
+
+
+Readiness works like a liveness, but the Liveness restart the containers into a pod
+and the Readiness remove the pod ip of the endpoints
