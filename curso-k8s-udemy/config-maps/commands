@@ -1,0 +1,48 @@
+### To create an config-map
+
+
+### For a specific file
+kubectl create configmap nginx-config --from-file=configmaps-examples/nginx.conf
+
+### When we want to create more than 1 file in the config map we just we need to add the folder path
+
+kubectl create configmap nginx-config --from-file=configmaps-examples/
+
+### To describe configmaps
+
+kubectl describe configmaps nginx-config
+
+
+### Adding the CONFIG MAP to a pod
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-test
+  labels:
+    app: front
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: front
+  template:
+    metadata:
+      labels:
+        app: front
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:alpine
+          volumeMounts:
+          - name: nginx-vol
+            mountPath: etc/nginx/conf.d/
+      volumes:
+        - name: nginx-vol
+          configMap:
+            name: nginx-config
+            items:
+            - key: nginx
+              path: default.conf
+
+```
