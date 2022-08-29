@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-vol-1
+  labels:
+    mysql: ready
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mysql"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mypvc
+  labels:
+    name: mypvc
+spec:
+  storageClassName: manual
+  resources:
+    requests:
+      storage: 10Gi
+  selector:
+    matchLabels:
+      mysql: ready
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:8.0
+        resources:
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: "12345678"
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - mountPath: "var/lib/mysql"
+          name: vol-mysql
+      volumes:
+        - name: vol-mysql
+          persistentVolumeClaim:
+            claimName: mypvc
+
+
