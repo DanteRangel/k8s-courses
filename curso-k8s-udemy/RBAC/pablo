@@ -1,0 +1,23 @@
+
+
+## RBAC
+minikube start --vm-driver=none  --extra-config=apiserver.authorization-mode=RBAC
+
+## Create keys and sign
+openssl genrsa -out pablo.key 2048
+openssl req -new -key pablo.key -out pablo.crt -subj "/CN=dante/O=dev"
+sudo openssl x509 -req -in pablo.crt -CA /Users/dante/.minikube/ca.crt -CAkey /Users/dante/.minikube/ca.key -CAcreateserial -out pablo.crt -days 500
+openssl x509 -in  pablo.crt  -noout -text
+
+## Isolated env
+minikube ip
+kubectl config view  | grep server
+docker run --rm -ti -v $PWD:/test -w /test -v /Users/dante/.minikube/ca.crt:/ca.crt -v /usr/bin/kubectl:/usr/bin/kubectl alpine sh --network="host"
+docker run --rm -ti -v $PWD:/test -w /test -v /Users/dante/.minikube/ca.crt:/ca.crt -v /usr/bin/kubectl:/usr/bin/kubectl alpine sh
+
+## Configure kubectl for user
+minikube ip
+
+kubectl config set-credentials pablo --client-certificate=pablo.crt --client-key=pablo.key
+kubectl config set-context pablo --cluster=minikube --user=pablo
+kubectl config use-context pablo

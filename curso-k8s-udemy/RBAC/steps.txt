@@ -1,0 +1,23 @@
+
+
+## RBAC
+minikube start --vm-driver=none  --extra-config=apiserver.authorization-mode=RBAC
+
+## Create keys and sign
+openssl genrsa -out dante.key 2048
+openssl req -new -key dante.key -out dante.crt -subj "/CN=dante/O=dev"
+sudo openssl x509 -req -in dante.crt -CA /Users/dante/.minikube/ca.crt -CAkey /Users/dante/.minikube/ca.key -CAcreateserial -out dante.crt -days 500
+openssl x509 -in  dante.crt  -noout -text
+
+## Isolated env
+minikube ip
+kubectl config view  | grep server
+docker run --rm -ti -v $PWD:/test -w /test -v /Users/dante/.minikube/ca.crt:/ca.crt -v /usr/bin/kubectl:/usr/bin/kubectl alpine sh --network="host"
+docker run --rm -ti -v $PWD:/test -w /test -v /Users/dante/.minikube/ca.crt:/ca.crt -v /usr/bin/kubectl:/usr/bin/kubectl alpine sh
+
+## Configure kubectl for user
+minikube ip
+
+kubectl config set-credentials dante --client-certificate=dante.crt --client-key=dante.key
+kubectl config set-context dante --cluster=minikube --user=dante
+kubectl config use-context dante
