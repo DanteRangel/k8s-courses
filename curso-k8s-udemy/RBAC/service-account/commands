@@ -1,0 +1,11 @@
+TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+
+curl -H "Authorization: Bearer ${TOKEN}" https://kubernetes/api/v1/ --insecure
+
+curl -H "Authorization: Bearer ${TOKEN}" https://kubernetes/api/v1/ --insecure
+
+curl -H "Authorization: Bearer ${TOKEN}" https://kubernetes/apis/apps/v1/namespaces/default/deployments --insecure
+curl -H "Authorization: Bearer ${TOKEN}" https://kubernetes/apis/apps/v1/namespaces/default/replicasets --insecure
+curl -H "Authorization: Bearer ${TOKEN}" https://kubernetes/api/v1/namespaces/default/pods --insecure
+
+curl -H "Authorization: Bearer ${TOKEN}" https://kubernetes/api/v1/namespaces/hola/pods --insecure

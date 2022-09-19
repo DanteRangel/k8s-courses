@@ -17,6 +17,7 @@ docker run --rm -ti -v $PWD:/test -w /test -v /Users/dante/.minikube/ca.crt:/ca.
 
 ## Configure kubectl for user
 minikube ip
+kubectl config set-cluster minikube --server=https://192.168.49.2:52876 --certificate-authority=/ca.crt
 
 kubectl config set-credentials dante --client-certificate=dante.crt --client-key=dante.key
 kubectl config set-context dante --cluster=minikube --user=dante
